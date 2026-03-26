@@ -1,0 +1,82 @@
+/* --------------------------------- Responsive Adjustments -------------------------------- */
+
+/* For Tablets and Mobile (Screens smaller than 992px) */
+@media (max-width: 991.98px) {
+    section{
+        padding: 60px 0; /* Reduced padding for smaller screens */
+    }
+    .profile-img-container {
+        width: 250px;  /* Smaller profile image on mobile */
+        height: 250px;
+        margin-bottom: 30px; /* Add spacing below the profile image */
+    }
+    .display-4 {
+        font-size: 2.5rem; /* Smaller heading on mobile */
+    }
+}/* For Mobile Phones (Screens smaller than 576px) */
+
+@media (max-width: 575.98px) {
+    .navbar-brand {
+        text-align: center; /* Center nav items on mobile */
+    }
+    .nav-link{
+        margin: 10px 0;
+        text-align: center; 
+    }
+    .btn-custom {
+        width: 100%; /* Full width buttons on mobile */
+        text-align: center;
+    }
+    .btn-custom {
+        width: 100%; /* Full width buttons on mobile */
+        text-align: center;
+    }
+    .profile-img-container {
+        width: 200px;  /* Even smaller profile image on very small screens */
+        height: 200px;
+    }
+    .display-4 {
+        font-size: 2rem; /* Further reduced heading size on very small screens */
+    }
+
+}
+ /* Fix for background block positioning on small screens */
+@media (max-width: 768px) {
+    .profile-img-container::after {
+        top: 15px;
+        left: 15px;
+    }
+}
+
+/* Responsive Padding for the Main Cards */
+.card-custom, .profile-card {
+    padding: 20px !important; /* Smaller padding on mobile */
+}
+
+@media (min-width: 768px) {
+    .card-custom, .profile-card {
+        padding: 50px !important; /* Restore large padding for desktop */
+    }
+}
+
+
+
+/* on mobile, the floating green badge */
+@media (max-width: 576px) {
+    .card-custom .badge {
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        margin: 0 0 20px 0 !important;
+        display: inline-block;
+    }
+    
+    /* Center the university icon box on mobile */
+    .icon-box {
+        margin: 0 auto 20px auto !important;
+    }
+    
+    .text-center-mobile {
+        text-align: center !important;
+    }
+}
