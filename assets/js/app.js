@@ -138,69 +138,32 @@ $(document).ready(function() {
 
 
 // ১. EmailJS Initialize করা
-// (function() {
-//     emailjs.init("pJDDpiDCrGc1h6zWq"); // Public Key
-// })();
-
-// // ২. উইন্ডো লোড হওয়ার পর ফর্ম লিসেনার সেট করা
-// window.onload = function() {
-//     const contactForm = document.getElementById('contact-form');
-    
-//     // চেক করা হচ্ছে ফর্মটি পেজে আছে কি না
-//     if(contactForm) {
-//         contactForm.addEventListener('submit', function(event) {
-//             event.preventDefault(); // পেজ রিলোড হওয়া বন্ধ করবে
-            
-//             // সাবমিট বাটন এবং সেটির মূল টেক্সট ধরা
-//             const submitBtn = this.querySelector('button');
-//             const originalBtnText = submitBtn.innerText;
-            
-//             // পাঠানোর সময় বাটনের অবস্থা পরিবর্তন
-//             submitBtn.innerText = 'Sending...';
-//             submitBtn.disabled = true;
-
-//             // EmailJS এর মাধ্যমে ইমেইল পাঠানো
-//             // service_id এবং template_id এখানে বসানো হয়েছে
-//             emailjs.sendForm('service_nwdydu9', 'template_r23llys', this)
-//                 .then(function() {
-//                     // সফলভাবে মেসেজ গেলে
-//                     alert('ধন্যবাদ! আপনার মেসেজটি সফলভাবে পাঠানো হয়েছে।');
-//                     contactForm.reset(); // ফর্মের সব টেক্সট মুছে দিবে
-//                 }, function(error) {
-//                     // কোনো ভুল হলে
-//                     alert('দুঃখিত! মেসেজ পাঠানো যায়নি। দয়া করে আপনার ইন্টারনেট চেক করুন।');
-//                     console.error('EmailJS Error:', error);
-//                 })
-//                 .finally(function() {
-//                     // কাজ শেষ হওয়ার পর বাটন আগের অবস্থায় ফিরিয়ে আনা
-//                     submitBtn.innerText = originalBtnText;
-//                     submitBtn.disabled = false;
-//                 });
-//         });
-//     }
-// };
 
 
 (function() {
     // আপনার পাবলিক কি pJDDpiDCrGc1h6zWq
     emailjs.init("pJDDpiDCrGc1h6zWq");
 })();
-
 // ফর্ম সাবমিট হ্যান্ডলার
 document.getElementById('contact-form').addEventListener('submit', function(event) {
     event.preventDefault();
-    
+
     const btn = this.querySelector('button');
     btn.innerText = 'Sending...';
 
-    // আপনার আইডিগুলো ব্যবহার করে
+    // ফর্ম থেকে প্রেরকের নাম সংগ্রহ করুন
+    const userName = this.querySelector('input[name="from_name"]').value; 
+
     emailjs.sendForm('service_u7gx33x', 'template_1y8g8ca', this)
         .then(function() {
-            alert('Your message has been sent successfully! ');
-            document.getElementById('contact-form').reset();
-        }, function(error) {
-            alert('Error: ' + JSON.stringify(error));
-        })
+              // পপ-আপ মেসেজে প্রেরকের নাম যুক্ত করুন
+              alert('Thank you, ' + userName + '! Your message has been sent successfully!'); 
+              document.getElementById('contact-form').reset();
+        },function(error) {
+              // এখানে আপনার পছন্দের মেসেজটি দিন
+              alert("Hi " + userName + ", we're having trouble reaching our server. Please try again in a few moments."); 
+              console.log('FAILED...', error); //  কনসোলে এররটি দেখা
+              })
         .finally(() => {
             btn.innerText = 'Send Message';
         });
