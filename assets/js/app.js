@@ -93,19 +93,6 @@ $(document).ready(function () {
         $slider.slick('setPosition');
     }, 500);
 
-    // 7. Form Submission
-    $('form').on('submit', function (e) {
-        e.preventDefault();
-        const btn = $(this).find('.btn-custom');
-        const originalText = btn.text();
-        btn.text('Sending...').attr('disabled', true);
-        
-        setTimeout(() => {
-            alert('Thank you, Prantika! Your message has been "sent" (simulated).');
-            btn.text(originalText).attr('disabled', false);
-            $(this).trigger('reset');
-        }, 2000);
-    });
 
     
 });
