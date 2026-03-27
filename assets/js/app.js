@@ -139,32 +139,35 @@ $(document).ready(function() {
 
 // ১. EmailJS Initialize করা
 
-
 (function() {
-    // আপনার পাবলিক কি pJDDpiDCrGc1h6zWq
     emailjs.init("pJDDpiDCrGc1h6zWq");
 })();
-// ফর্ম সাবমিট হ্যান্ডলার
-document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault();
 
-    const btn = this.querySelector('button');
-    btn.innerText = 'Sending...';
+const contactForm = document.getElementById('contact-form');
 
-    // ফর্ম থেকে প্রেরকের নাম সংগ্রহ করুন
-    const userName = this.querySelector('input[name="from_name"]').value; 
+if (contactForm) {
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
 
-    emailjs.sendForm('service_u7gx33x', 'template_1y8g8ca', this)
-        .then(function() {
-              // পপ-আপ মেসেজে প্রেরকের নাম যুক্ত করুন
-              alert('Thank you, ' + userName + '! Your message has been sent successfully!'); 
-              document.getElementById('contact-form').reset();
-        },function(error) {
-              // এখানে আপনার পছন্দের মেসেজটি দিন
-              alert("Hi " + userName + ", we're having trouble reaching our server. Please try again in a few moments."); 
-              console.log('FAILED...', error); //  কনসোলে এররটি দেখা
-              })
-        .finally(() => {
-            btn.innerText = 'Send Message';
-        });
-});
+        const btn = this.querySelector('button');
+        const userName = this.querySelector('input[name="from_name"]').value; 
+
+        btn.innerText = 'Sending...';
+        btn.disabled = true; // সাবমিট হওয়ার সময় বাটনটি ডিজেবল করে দিন
+
+        emailjs.sendForm('service_u7gx33x', 'template_1y8g8ca', this)
+            .then(() => {
+                // শুধু এই একটি এলার্টই থাকবে
+                alert(`Thank you, ${userName}! Your message has been sent successfully!`);
+                this.reset();
+            })
+            .catch((error) => {
+                alert(`Hi ${userName}, we're having trouble. Please try again.`);
+                console.error('FAILED...', error);
+            })
+            .finally(() => {
+                btn.innerText = 'Send Message';
+                btn.disabled = false;
+            });
+    });
+}
